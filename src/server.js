@@ -20,7 +20,7 @@ wss.on("connection", (socket) => {
     socket.on("message", (message) => {
         console.log(message.toString('UTF8'));
     });
-    socket.send("Hello, world!");
+    socket.send("Hello!!!");
 });
 
 server.listen(3000, handleListen);
