@@ -9,18 +9,27 @@ app.use('/public', express.static(__dirname + '/public'));
 app.get('/', (req, res) => res.render('home'));
 
 const handleListen = () => console.log('Listening on http://localhost:3000');
-// app.listen(3000, handleListen);
 
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const server    = http.createServer(app);
+const wss       = new WebSocket.Server({ server });
+const sockets   = [];
 
 wss.on("connection", (socket) => {
     console.log("Connected to Browser ✅");
     socket.on("close", () => console.log("Disconnected to Browser ❌"));
-    socket.on("message", (message) => {
-        console.log(message.toString('UTF8'));
+    
+    sockets.push(socket);
+    socket['nickname'] = 'Anon';
+    socket.on("message", (msg) => {
+        const message = JSON.parse(msg);
+
+        switch(message.type) {
+            case 'message' :
+                sockets.forEach((aSocket) => aSocket.send(`${socket.nickname} : ${message.payload}`));
+            case 'nickname' :
+                socket['nickname'] = message.payload;
+        }
     });
-    socket.send("Hello!!!");
 });
 
 server.listen(3000, handleListen);
