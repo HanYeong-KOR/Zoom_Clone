@@ -1,0 +1,25 @@
+doctype html
+html(lang="ko")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="https://unpkg.com/mvp.css")
+        title Zoom 
+    body 
+        header 
+            h1 Zoom 
+        main 
+            div#welcome
+                form
+                    input(type="text", placeholder="Room name", required)
+                    button Enter Room
+            div#room
+                h3
+                ul 
+                form
+                    input(type="text", placeholder="Write a message", required)
+                    button Send
+                    button Leave
+
+        script(src="/socket.io/socket.io.js")
+        script(src="public/js/socketIO/app.js")
