@@ -16,7 +16,11 @@ html(lang="ko")
             div#room
                 h3
                 ul 
-                form
+                form#name
+                    input(type="text", placeholder="Write a nickname", required)
+                    button Save
+
+                form#msg
                     input(type="text", placeholder="Write a message", required)
                     button Send
                     button Leave
